@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/commons-collections4-4.4.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/guava-23.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/java-json.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/org.eclipse.jgit-5.7.0.202003110725-r.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/org.eclipse.jgit-5.8.0.202006091008-r (1).jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/slf4j-api-1.7.9.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/slf4j-api-1.7.30.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/slf4j-api-2.0.0-alpha1-javadoc.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/slf4j-simple-1.7.9.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/slf4j-simple-1.7.30 (1).jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/SMOTE-1.0.3.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Alessandro Costa/eclipse-workspace/ISW2_Deliverable1_2021/lib/weka.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
