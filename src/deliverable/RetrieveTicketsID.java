@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +71,7 @@ public class RetrieveTicketsID {
   
   	   public static void main(String[] args) throws IOException, JSONException {
   		 List <LocalDate> date = new ArrayList();
-  		 List <Month> month = new ArrayList();
+  		 List <Integer> month = new ArrayList();
   		 List <String> finalList = new ArrayList();
   		 List <Integer> fixedTicket = new ArrayList();
   		 Dictionary<String, LocalDate> dictionary = new Hashtable<String, LocalDate>();
@@ -98,73 +99,77 @@ public class RetrieveTicketsID {
             //ticket.add(key);
             date.add(dates); //AGGIUNGO LA DATA NELLA LISTA DATE
             date.sort(null); //ORDINO LA LISTA SECONDO L'ANNO
-            dictionary.put(key, resolutionDate);
            
             
       
          } 
          for (; n < date.size();n++) {
-        	 month.add(date.get(n).getMonth())  ;
-        	 finalList.add(month.get(n).toString()+date.get(n).getYear());
+        	 month.add(date.get(n).getMonthValue())  ;
+        	 finalList.add(month.get(n).toString()+"-"+date.get(n).getYear());
          }
-         Integer m = 0;
-         while(finalList.get(m+1) != null) {    //da migliorare come ciclare i fixed ticket
-        	 Integer count = 0;
-        	 Integer value = 0;
-        	 if (finalList.get(m) == finalList.get(m+1)) {
-        		 fixedTicket.add(count, value);
-        		 if(m == finalList.size()) {
-        			 break;
-        		 }
-        		 m++;
-        	 }
-        	 else {
-        		 fixedTicket.add(count,1);
-        		 count ++;
-        		 if(m<finalList.size()) {
-        			 break;
-        		 }
-        		 m++;
-        	 }
-         }
-         /*for(;m < finalList.size();m++) {
-        	 Integer count = 0;
-        	 if (finalList.get(m) == finalList.get(m+1)) {
-        		 fixedTicket.add(1, count);
-        	 }
-        	 else {
-        		 fixedTicket.add(1,count);
-        		 count ++;
-        	 }
-         }*/
-         int occurrences = Collections.frequency(date,year);
+         finalList.add(null);
          System.out.println(finalList);
+         Integer k =0;
+         List <String> ultimateList = new ArrayList();
+         for(;k<finalList.size();k++) {
+        	 if (!ultimateList.contains(finalList.get(k))) {
+        		  
+                 ultimateList.add(finalList.get(k));
+             }
+         }
+         Integer a = 0;
+         Integer m = 0;
+         Integer index = 0;
+         Integer value = 0;
+         for(; m < finalList.size();m++) {
+        	 if(finalList.get(m) == null){
+    			 value= 0;
+    			 index = index +1;
+        		 fixedTicket.add(index, value);
+        		 break;
+    			 
+    		 }	 
+        	 else if(finalList.get(m).equals(finalList.get(m+1))) {
+        			 value = value +1;
+        			 fixedTicket.add(index, value);
+        		 }
+        		  
+        	 else {
+        			 value = value +1;
+        			 fixedTicket.add(index, value);
+        			 index = index +1;
+        			 value = 0;
+        		 }
+        	 
+         }
+         System.out.println(index);
+         System.out.println(ultimateList);
+         System.out.println(ultimateList.size());
+         System.out.println(finalList);
+         System.out.println(finalList.size());
          System.out.println(fixedTicket);
-         Enumeration enu = dictionary.keys();
-         Enumeration enu1 = dictionary.elements();
+         System.out.println(fixedTicket.size());
          FileWriter csvWriter = new FileWriter("STDCXX-TicketFixed.csv");
+         Integer mean = 0;
          csvWriter.append("Fixed Ticket");
          csvWriter.append(";");
          csvWriter.append("Data");
+         csvWriter.append(";");
+         csvWriter.append("Media");
          csvWriter.append("\n");
-         for(; v < fixedTicket.size();v++) {
+         /*for(;a<fixedTicket.size();a++) {
+        	 mean = mean + fixedTicket.get(a);
+        	 }
+         mean = mean / fixedTicket.size();*/
+         for(; v < ultimateList.size();v++) {
+        	 csvWriter.append(ultimateList.get(v));
+        	 csvWriter.append(";");
         	 csvWriter.append(fixedTicket.get(v).toString());
-        	 csvWriter.append(";");
+        	 /*csvWriter.append(";");
+        	 csvWriter.append(mean.toString());*/
         	 csvWriter.append("\n");
-         }
-         for(;l < finalList.size();l++) {
-        	 csvWriter.append(finalList.get(l));
-        	 csvWriter.append(";");
-        	 csvWriter.append("\n");
-         }
-         /*for(i = 0 ; i<date.size();i++) {
-        	 csvWriter.append(enu.toString());
-        	 csvWriter.append(";");
-        	 csvWriter.append(dictionary.values().toString());
-        	 csvWriter.append("\n");
-         }*/
         	 
-         
+         }
          csvWriter.flush();
          csvWriter.close();
       } while (i < total);
