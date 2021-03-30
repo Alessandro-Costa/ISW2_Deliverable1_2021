@@ -53,10 +53,10 @@ public class RetrieveTicketsID {
 
   
   	   public static void reportTicket() throws IOException, JSONException {
-  		 List <LocalDate> date = new ArrayList();
-  		 List <Integer> month = new ArrayList();
-  		 List <String> finalList = new ArrayList();
-  		 List <Integer> fixedTicket = new ArrayList();
+  		 List <LocalDate> date = new ArrayList<>();
+  		 List <Integer> month = new ArrayList<>();
+  		 List <String> finalList = new ArrayList<>();
+  		 List <Integer> fixedTicket = new ArrayList<>();
 		   String projName ="STDCXX";
 	   Integer j = 0;  
 	   Integer i = 0;
@@ -86,7 +86,7 @@ public class RetrieveTicketsID {
          }
          finalList.add(null);
          Integer k =0;
-         List <String> ultimateList = new ArrayList();
+         List <String> ultimateList = new ArrayList<>();
          for(;k<finalList.size();k++) {
         	 if (!ultimateList.contains(finalList.get(k))) {
         		  
