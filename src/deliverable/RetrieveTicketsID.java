@@ -7,11 +7,15 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.NoHeadException;
+import org.eclipse.jgit.revwalk.RevCommit;
 import org.json.JSONArray;
 
 public class RetrieveTicketsID {
@@ -52,11 +56,13 @@ public class RetrieveTicketsID {
 
 
   
-  	   public static void reportTicket() throws IOException, JSONException {
-  		 List <LocalDate> date = new ArrayList<>();
+  	   public static void reportTicket() throws IOException, JSONException, NoHeadException, GitAPIException {
+  		 List <LocalDateTime> date = new ArrayList<>();
   		 List <Integer> month = new ArrayList<>();
   		 List <String> finalList = new ArrayList<>();
   		 List <Integer> fixedTicket = new ArrayList<>();
+  		ArrayList <RevCommit> commits = GetInfoCommit.commitList();
+  		LocalDateTime var = LocalDateTime.now();
 		   String projName ="STDCXX";
 	   Integer j = 0;  
 	   Integer i = 0;
@@ -76,12 +82,30 @@ public class RetrieveTicketsID {
          for (; i < total && i < j; i++) {
             //Iterate through each bug
             String data = issues.getJSONObject(i%1000).getJSONObject("fields").getString("resolutiondate");
-            LocalDate dates = LocalDate.parse(data.substring(0,10));  //TRASFORMO LA DATA DA STRINGA A DATA
-            date.add(dates); //AGGIUNGO LA DATA NELLA LISTA DATE
-            date.sort(null); //ORDINO LA LISTA SECONDO L'ANNO
+            LocalDateTime dates = LocalDateTime.parse(data.substring(0,16));  //TRASFORMO LA DATA DA STRINGA A DATA
+            String ticketID = issues.getJSONObject(i%1000).get("key").toString();
+            for(int k = 0;k < commits.size();k++) {
+         		String message = commits.get(k).getFullMessage();
+         		if (message.contains(ticketID +",") || message.contains(ticketID +"\r") || message.contains(ticketID +"\n")|| message.contains(ticketID + " ") || message.contains(ticketID +":")
+     					 || message.contains(ticketID +".")|| message.contains(ticketID + "/") || message.endsWith(ticketID) ||
+     					 message.contains(ticketID + "]")|| message.contains(ticketID+"_") || message.contains(ticketID + "-") || message.contains(ticketID + ")") ) 
+         		{
+         			System.out.println("Sto entrando nell'if lunghissimo");
+     				 if(dates.isAfter(commits.get(k).getAuthorIdent().getWhen().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())) {
+     					date.add(dates); //AGGIUNGO LA DATA NELLA LISTA DATE
+     					System.out.println("Sto stampando la data del commit" + dates);
+     				 }
+     				 else {
+     					 date.add(commits.get(k).getAuthorIdent().getWhen().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+     					 System.out.println("Sto stampando la data di JIRA"+dates);
+     				 }
+         		}
+     		 }
          } 
+         date.sort(null);
+         System.out.println(date);
          for (; n < date.size();n++) {
-        	 month.add(date.get(n).getMonthValue())  ;
+        	 month.add(date.get(n).getMonthValue());
         	 finalList.add(month.get(n).toString()+"-"+date.get(n).getYear());
          }
          finalList.add(null);
