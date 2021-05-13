@@ -1,7 +1,7 @@
 organization=alessandro-costa
-projectKey=Alessandro-Costa_ISW2_Deliverable_2021
+projectKey=Alessandro-Costa_ISW2_Deliverable1_2021
 serverUrl=https://sonarcloud.io
-serverVersion=8.0.0.18801
-dashboardUrl=https://sonarcloud.io/dashboard?id=Alessandro-Costa_ISW2_Deliverable_2021
-ceTaskId=AXh4hXFVf7Q5V2GP3tQW
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AXh4hXFVf7Q5V2GP3tQW
+serverVersion=8.0.0.20026
+dashboardUrl=https://sonarcloud.io/dashboard?id=Alessandro-Costa_ISW2_Deliverable1_2021
+ceTaskId=AXllRI5PrGRuk1iDkJkI
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AXllRI5PrGRuk1iDkJkI

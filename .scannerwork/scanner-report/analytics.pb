@@ -1,6 +1,7 @@
 
-#
-physical_memory_byte17125343232
+"
+physical_memory_byte
+4054286336
 &
 msbuild_major_minor_versionUnknown
 
@@ -18,20 +19,21 @@
 
 msbuild_versionUnknown
  
-peak_used_heap_byte	209870624
+peak_used_heap_byte	137962112
 
 scanner_type
 ScannerCLI
 
 java_vendorAdoptOpenJDK
+‰
+nodejs_unknown_reasonïGet version command exited / had an exception (exit code : N/A ; stdout: N/A ; stderr: N/A ; exception : org.sonar.api.utils.command.CommandException: java.io.IOException: Cannot run program "node": error=2, File o directory non esistente)
 
 max_heap_byte
-4282384384
+1015021568
 
 java_version11.0.3
-
-os_name
-Windows 10
+
+os_nameLinux
 )
  force_java_8_during_grace_periodfalse
 
@@ -40,6 +42,8 @@ Windows 10
 
 
 scmgit
+
+msbuild_unknown_reasonòGet version command exited / had an exception (exit code : N/A ; stdout: N/A ; stderr: N/A ; exception : org.sonar.api.utils.command.CommandException: java.io.IOException: Cannot run program "msbuild": error=2, File o directory non esistente)
 
 node_js_versionUnknown>
 garbage_collectors(
