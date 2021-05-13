@@ -12,12 +12,13 @@ public class CsvWriter {
 	  }
 
 	public static void write(List <String> ultimateList,List <Integer> fixedTicket)  {
-		try (FileWriter csvWriter = new FileWriter("STDCXX-TicketFixed.csv")){
+		Integer v;
+		try (var csvWriter = new FileWriter("STDCXX-TicketFixed.csv")){
 		csvWriter.append("Fixed Ticket");
         csvWriter.append(";");
         csvWriter.append("Data");
         csvWriter.append("\n");
-        for(int v = 0; v < ultimateList.size();v++) {
+        for(v = 0; v < ultimateList.size();v++) {
        	 csvWriter.append(ultimateList.get(v));
        	 csvWriter.append(";");
        	 csvWriter.append(fixedTicket.get(v).toString());

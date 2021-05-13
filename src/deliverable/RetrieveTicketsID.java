@@ -14,7 +14,6 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.json.JSONArray;
 
@@ -27,7 +26,7 @@ public class RetrieveTicketsID {
 
 
    private static String readAll(Reader rd) throws IOException {
-	      StringBuilder sb = new StringBuilder();
+	      var sb = new StringBuilder();
 	      int cp;
 	      while ((cp = rd.read()) != -1) {
 	         sb.append((char) cp);
@@ -38,7 +37,7 @@ public class RetrieveTicketsID {
    public static JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
       
       try(InputStream is = new URL(url).openStream()) {
-    	 BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8.name()));
+    	 var rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8.name()));
          String jsonText = readAll(rd);
          return new JSONArray(jsonText);
        } 
@@ -47,7 +46,7 @@ public class RetrieveTicketsID {
 
    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
       try(InputStream is = new URL(url).openStream()) {
-    	 BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8.name()));
+    	 var rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8.name()));
          String jsonText = readAll(rd);
          return new JSONObject(jsonText);
          
@@ -56,17 +55,18 @@ public class RetrieveTicketsID {
 
 
   
-  	   public static void reportTicket() throws IOException, JSONException, NoHeadException, GitAPIException {
+  	   public static void reportTicket() throws IOException, JSONException, GitAPIException {
   		 List <LocalDateTime> date = new ArrayList<>();
   		 List <Integer> month = new ArrayList<>();
   		 List <String> finalList = new ArrayList<>();
   		 List <Integer> fixedTicket = new ArrayList<>();
-  		ArrayList <RevCommit> commits = GetInfoCommit.commitList();
-  		LocalDateTime var = LocalDateTime.now();
-		   String projName ="STDCXX";
+  		 List <RevCommit> commits = GetInfoCommit.commitList();
+		 var projName ="STDCXX";
 	   Integer j = 0;  
 	   Integer i = 0;
 	   Integer n = 0;
+	   Integer k;
+	   Integer pasd;
 	   Integer total = 1;
       //Get JSON API for closed bugs w/ AV in the project
       do {
@@ -77,14 +77,14 @@ public class RetrieveTicketsID {
                 + "%22status%22=%22resolved%22)AND%22resolution%22=%22fixed%22&fields=key,resolutiondate,versions,created&startAt="
                 + i.toString() + "&maxResults=" + j.toString();
          JSONObject json = readJsonFromUrl(url);
-         JSONArray issues = json.getJSONArray("issues");
+         var issues = json.getJSONArray("issues");
          total = json.getInt("total");
          for (; i < total && i < j; i++) {
             //Iterate through each bug
-            String data = issues.getJSONObject(i%1000).getJSONObject("fields").getString("resolutiondate");
-            LocalDateTime dates = LocalDateTime.parse(data.substring(0,16));  //TRASFORMO LA DATA DA STRINGA A DATA
-            String ticketID = issues.getJSONObject(i%1000).get("key").toString();
-            for(int k = 0;k < commits.size();k++) {
+            var data = issues.getJSONObject(i%1000).getJSONObject("fields").getString("resolutiondate");
+            var dates = LocalDateTime.parse(data.substring(0,16));  //TRASFORMO LA DATA DA STRINGA A DATA
+            var ticketID = issues.getJSONObject(i%1000).get("key").toString();
+            for(k = 0;k < commits.size();k++) {
          		String message = commits.get(k).getFullMessage();
          		if (message.contains(ticketID +",") || message.contains(ticketID +"\r") || message.contains(ticketID +"\n")|| message.contains(ticketID + " ") || message.contains(ticketID +":")
      					 || message.contains(ticketID +".")|| message.contains(ticketID + "/") || message.endsWith(ticketID) ||
@@ -109,15 +109,15 @@ public class RetrieveTicketsID {
         	 finalList.add(month.get(n).toString()+"-"+date.get(n).getYear());
          }
          finalList.add(null);
-         Integer k =0;
+         Integer x=0;
          List <String> ultimateList = new ArrayList<>();
-         for(;k<finalList.size();k++) {
-        	 if (!ultimateList.contains(finalList.get(k))) {
+         for(;x<finalList.size();x++) {
+        	 if (!ultimateList.contains(finalList.get(x))) {
         		  
-                 ultimateList.add(finalList.get(k));
+                 ultimateList.add(finalList.get(x));
              }
          }
-         for(int pasd = 0; pasd <ultimateList.size();pasd++) {
+         for(pasd = 0; pasd <ultimateList.size();pasd++) {
         	 fixedTicket.add(0);
          }
          TicketsArray.write(finalList,fixedTicket);
